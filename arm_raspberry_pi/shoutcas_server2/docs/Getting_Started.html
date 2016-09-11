@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SHOUTcast Getting Started Guide</title>
+<style type="text/css">body,table,textarea,pre{font-family:Arial,Helvetica,sans-serif;font-size:10pt;}.header{background-color:rgb(66,164,189);color:white;padding:1px;}a:link,a:visited{color:#2762AE;text-decoration:none;}a:hover{text-decoration:underline;}ul{list-style-type:none;text-align:left;}ul.n{list-style-type:square;text-align:left;}pre{background-color:#F0F0F0;border:1px solid #CCCCCC;font-weight:bold;padding:5px 10px 5px 10px;display:inline-block;margin-top:0;margin-bottom:0;margin-left:25px;}pre.src{border:0;font-family:monospace;background-color:white;}span.b{font-weight:normal;color:#3366CC;}span.c{font-style:italic;font-weight:normal;color:#808080;}span.v{font-weight:normal;}span.r{font-weight:normal;color:#000066;}span.s{font-weight:normal;color:#FF0000;}#toc{border:1px solid #CCCCCC;padding:0 5px 0 5px;text-align: center;}p.ver{font-size:85%;margin-top:-1.5em;text-align:center;}.thumb,.thumb_about,.thumb_dsp{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:202px;}.serv{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:252px;}.pages{white-space:nowrap;padding-right:25px;}.thumb_dsp{width:132px;}img{width:200px;}img.serv{width:250px;}img.thumb{border:1px solid #CCCCCC;}img.about{height:185px;width:240px;}.thumb_about{width:242px;}hr{border:0;background-color:#CCCCCC;height:1px;)</style>
+<script type="text/javascript">if(window.showTocToggle){var tocShowText="show";var tocHideText="hide";showTocToggle()}function showTocToggle(){if(document.createTextNode){var linkHolder=document.getElementById('toctitle');if(!linkHolder){return}var outerSpan=document.createElement('span');outerSpan.className='toctoggle';var toggleLink=document.createElement('a');toggleLink.id='togglelink';toggleLink.className='internal';toggleLink.href='javascript:toggleToc()';toggleLink.appendChild(document.createTextNode(tocHideText));outerSpan.appendChild(document.createTextNode('['));outerSpan.appendChild(toggleLink);outerSpan.appendChild(document.createTextNode(']'));linkHolder.appendChild(document.createTextNode(' '));linkHolder.appendChild(outerSpan);var cookiePos=document.cookie.indexOf("gss_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+12)==1){toggleToc()}}}function changeText(el,newText){if(el.innerText){el.innerText=newText}else if(el.firstChild&&el.firstChild.nodeValue){el.firstChild.nodeValue=newText}}function toggleToc(){var toc=document.getElementById('toc').getElementsByTagName('ul')[0];var toggleLink=document.getElementById('togglelink');if(toc&&toggleLink&&toc.style.display=='none'){changeText(toggleLink,tocHideText);document.getElementById('toc').style.cssFloat='left';toc.style.display='block';document.cookie="gss_hidetoc=0"}else{changeText(toggleLink,tocShowText);document.getElementById('toc').style.cssFloat='';toc.style.display='none';document.cookie="gss_hidetoc=1"}}window.onload=function(){var cookiePos=document.cookie.indexOf("gss_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+12)==1){toggleToc()}}</script>
+</head>
+<div class="header">
+<h1 align="center">SHOUTcast Getting Started Guide</h1>
+<p class="ver">(Last Updated 16 March 2015)</p>
+</div>
+<table id="toc" style="float:left;margin-right:40px;margin-bottom:5px;"><tbody><tr><td>
+<div id="toctitle"><b>Contents</b> <span class="toctoggle">[<a id="togglelink" class="internal" href="javascript:toggleToc()">hide</a>]</span></div>
+<ul style="padding-left:0px;">
+<li><a href="#Introduction">1 Introduction</a></li>
+<ul>
+<li><a href="#What_is_SHOUTcast?">1.1 What is SHOUTcast?</a></li>
+<li><a href="#Windows_Users">1.2 Windows Users</a></li>
+<li><a href="#Windows_Vista_and_Newer_Specifics">1.3 Windows Vista and Newer Specifics</a></li>
+</ul>
+<li><a href="#What_is_Required?">2 What is Required?</a></li>
+<ul>
+<li><a href="#Supported_Operating_Systems">2.1 Supported Operating Systems</a></li>
+</ul>
+<li><a href="#Getting_Installed">3 Getting Installed</a></li>
+<ul>
+<li><a href="#Download_the_Correct_Version">3.1 Download the Correct Version</a></li>
+<li><a href="#Choose_an_Install_Location">3.2 Choose an Install Location</a></li>
+<li><a href="#Installation">3.3 Installation</a></li>
+<li><a href="#Setting_Up_The_Tools">3.4 Setting Up The Tools</a></li>
+<li><a href="#DNAS_Server">3.5 DNAS Server</a></li>
+<ul>
+<li><a href="#DNAS_Server_Configuration_Setup">3.5.1 Configuration Setup</a></li>
+<ul>
+<li><a href="#Upgrading_an_Existing_Install">3.5.1.1 Upgrading an Existing Install</a></li>
+<li><a href="#Example_Configurations">3.5.1.2 Example Configurations</a></li>
+</ul>
+<li><a href="#Starting_the_DNAS_Server">3.5.2 Starting the DNAS Server</a></li>
+<li><a href="#Errors_Running_the_DNAS_Server">3.5.3 Errors Running the DNAS Server</a></li>
+<li><a href="#Obtaining_an_Authhash">3.5.4 Obtaining an Authhash</a></li>
+</ul>
+<li><a href="#Source_DSP">3.6 Source DSP</a></li>
+<ul>
+<li><a href="#Installing_the_Source_DSP">3.6.1 Installing the Source DSP</a></li>
+<li><a href="#Starting_the_Source_DSP">3.6.2 Starting the Source DSP</a></li>
+<li><a href="#Configuring_the_Source_DSP">3.6.3 Configuring the Source DSP</a></li>
+</ul>
+<li><a href="#Completion">3.7 Completion</a></li>
+</ul>
+<li><a href="#Further_Information">4 Further Information</a></li>
+<ul>
+<li><a href="#Related_Documentation">4.1 Related Documentation</a></li>
+</ul>
+<li><a href="#Glossary">5 Glossary</a></li>
+</ul>
+</td></tr></tbody></table>
+
+<a name="Introduction"></a><h2>1.&nbsp;Introduction</h2>
+<hr>
+<p>The aim of this document is to help guide you through the process of getting a SHOUTcast 2 system installed and broadcasting so people can connect to it through the SHOUTcast Radio Directory and hear the great content you have and want to provide to the world.</p>
+<p>It is assumed you know how to setup your network to allow your DNAS server to be visible when broadcasting on the internet (if required) which includes any router(s) and port(s).</p>
+<p>This guide will refer you to appropriate places in the documentation provided with the tools. These referenced sections provide more detailed information on the option or feature such as what would need to be set in the Source DSP to allow it to work with the DNAS server being setup.</p>
+<p><br></p>
+
+<a name="What_is_SHOUTcast?"></a><h2>1.1.&nbsp;What is SHOUTcast? <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>If you are new to SHOUTcast then this is probably something you may have already asked or
+you are trying to find out.</p>
+<p><br>At its most basic, the SHOUTcast system is based around a 'client + server' configuration which allows you to run a DNAS server (either directly or via a hosted service) which can then provide stream(s) of the 'source' connected to the server to any listeners connected to the DNAS server.</p>
+<p><br>So a simple SHOUTcast setup would consist of the following:</p>
+<p><img style="width:328px;padding-left:30px;" alt="Simple SHOUTcast System" src="res/Simple.png"></p>
+<p><br>This is not the only way to setup a SHOUTcast system and more examples can be seen in the
+shoutcast_system_overview.txt which goes into more detail about the way SHOUTcast works
+as well as other ways of setting up a SHOUTcast system (see <a href="#What_is_Required?">section 2.0</a>).</p>
+<p><br></p>
+
+<a name="Windows_Users"></a><h2>1.2.&nbsp;Windows Users <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>The DNAS server is built to be run from the command-line console (or as a native service if using this mode) which may appear to be daunting when most interaction done with the operating system is done via a graphical interface (GUI).</p>
+<p>If you are not acquainted with using the command-line console then you will need to find a guide which shows you the basics of using the command-line console along with getting you familiar with using it before trying to get any of the SHOUTcast tools running. If you search for 'how to use the command prompt' then you should find a guide which you can follow to help get you knowledgeable enough with using the command-line console.</p>
+<p>This may appear to be a step backwards if you previously used the 1.x DNAS server with its very basic GUI wrapper which otherwise was acting in the same manner as the command-line console just without the look of the operating system. However the 1.x DNAS server was at its core a command-line tool just like the 2.x DNAS server is now.</p>
+<p>In most cases you will just need to double-click a file to get the DNAS server running. For more advanced functionality it is assumed you have a basic knowledge of how to use the command-line console for the platform you decide to install the tools on i.e. how to run and control a program via the command-line console including being able to pass commands and the sending of signals as is appropriate to the platform.</p>
+<p><br></p>
+
+<a name="Windows_Vista_and_Newer_Specifics"></a><h2>1.3.&nbsp;Windows Vista and Newer Specifics <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>Due to the UAC feature (<a target="_blank" href="http://en.wikipedia.org/wiki/User_Account_Control">http://en.wikipedia.org/wiki/User_Account_Control</a>) of these OSes you will need to remember the effect that this will have on editing and saving of files.</p>
+<p>By default the Windows versions of the installer will choose the native 'Program Files' folder (<font style="color:red;"><b>*</b></font>) but unless you have disabled UAC or do not have full access to the folder then you will find attempts to save and edit any configuration files will not work.</p>
+<p>If this is an issue then you should either choose a different folder of all of the files or change where the tools are trying to save files and also to save any changes in your configuration files with a text editor which is running with administrator permissions.</p>
+<p>This is an unfortunate inconvenience though for making it easier to known where all of the configuration examples and documentation can be found is better. Finally there is no reason not to choose a different folder when installing the tools if you experience this.</p>
+<p><br>(<font style="color:red;"><b>*</b></font>) This will be slightly different depending on if you are using the 32-bit or 64-bit version of the OS as well as the language of the OS. As well the installer will pick the native 'Program Files' folder so installing the 32-bit version on the 64-bit OS will use 'Program Files (x86)' whereas installing the 64-bit version on the same OS will use 'Program Files'.</p>
+<p><br></p>
+
+<a name="What_is_Required?"></a><h2>2.&nbsp;What is Required? <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>To make your SHOUTcast system you will need the following software tools and hardware:</p>
+<p><ul class="n">
+<li>A computer (real or virtual) running a supported operating system (see <a href="#Supported_Operating_Systems">section 2.1</a>)</li>
+<li>SHOUTcast DNAS server</li>
+<li>An input source (e.g. Winamp plus Source DSP plug-in or any 3rd party source which is SHOUTcast compatible)</li>
+<li>Media or DJ's or a Capture device i.e. the content you want to provide to people</li>
+</ul>
+<p><br></p>
+
+<a name="Supported_Operating_Systems"></a><h2>2.1.&nbsp;Supported Operating Systems <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>There are versions of the DNAS server available on the following operating
+systems:</p>
+<p style="padding-left:25px;"><b>Windows 32-bit</b>&nbsp;&nbsp;&nbsp;&nbsp;From Windows 2000 and up, including server versions<br>
+<b>Windows 64-bit</b>&nbsp;&nbsp;&nbsp;&nbsp;All 64-bit versions of Windows, including server versions<br>
+<br>
+<b>Linux 32-bit</b>&nbsp;&nbsp;&nbsp;&nbsp;Should generally work on most Linux distributions<br>
+<b>Linux 64-bit</b>&nbsp;&nbsp;&nbsp;&nbsp;and is mainly tested on CentOS 5.x and Debian<br>
+<br>
+<b>Raspbian (Raspberry Pi)</b><br>
+<br>
+<b>BSD 8.x</b>&nbsp;&nbsp;&nbsp;&nbsp;For newer versions of BSD you may need to install a compatibility layer<br><br>
+<b>Mac OS X (Intel versions only)</b><br>
+<p><br>Remember to download the version of the tools which apply to the operating system you will be installing the tools onto e.g. you could install the 32-bit Windows version on Windows 7 64-bit but could not install the 64-bit Windows version on Windows XP 32-bit.</p>
+<p>If using machines with different operating systems for different tasks then there should not be any problems with them working together e.g. Windows for the source and Linux for the DNAS server. This is because the tools use the same communication style irrespective of the platform they are being run on. If you do find an incompatibility then please report it.</p>
+<p><br></p>
+
+<a name="Getting_Installed"></a><h2>3.&nbsp;Getting Installed <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When following the steps listed, follow the steps which are applicable to the operating system and the tool you are attempting to install. If you want to install more than one thing then it is better to work through the guide for one tool at a time especially when you are new to SHOUTcast instead of trying to do everything all at once and it failing / getting confused.</p>
+<pre>It is recommended to setup the DNAS server first before attempting to setup sources.</pre>
+<p><br></p>
+
+<a name="Download_the_Correct_Version"></a><h2>3.1.&nbsp;Download the Correct Version <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>To begin with you will need to download the correct version for the operating system you are setting up your SHOUTcast system on. See see <a href="#Supported_Operating_Systems">section 2.1</a> for clarification of the supported operating systems. The current versions of the SHOUTcast tools can be obtained from:</p>
+<p style="padding-left:25px;"><a target="_blank" href="http://www.shoutcast.com/BroadcastNow">http://www.shoutcast.com/BroadcastNow</a><br>
+or<br>
+<a target="_blank" href="http://forums.shoutcast.com/showthread.php?t=324877">http://forums.shoutcast.com/showthread.php?t=324877</a> (<font style="color:red;"><b>*</b></font>)</p>
+<p><br>Remember you will need to download a DNAS server (sc_serv) and a source for the DNAS server which if using Windows then you can use the Winamp Source DSP plug-in (dsp_sc) (which may work on non-Windows systems using WINE but is not guaranteed and no support is offered with such a setup).</p>
+<p><br>There are a number of third party tools (free and paid for) which can be used as a source for a DNAS server. These are not covered as part of this guide and if you decide you want to use one of these programs then you will need to consult their help for getting it to work with the DNAS server. In all cases, you will need a DNAS server correctly setup.</p>
+<p><br>(<font style="color:red;"><b>*</b></font>) This is a summary page and contains links to the latest versions of the tools such as when a new release has just been released or is being tested before it is provided via the main SHOUTcast site download page at http://www.shoutcast.com/BroadcastNow</p>
+<p><br></p>
+
+<a name="Choose_an_Install_Location"></a><h2>3.2.&nbsp;Choose an Install Location <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>Choose an install location for the tool you want to install (be it the DNAS server or the Source DSP plug-in for Winamp) as needed for the SHOUTcast setup you are making on the machine.</p>
+<p><br>On Windows this choice is handled via the installer which attempts to select a sensible new location or it will re-uses the previous install location if doing an upgrade of a 2.x based install previously made. This can be changed if needed during install and will need to be done if you are running on a Windows version with UAC enabled (<a href="#Windows_Vista_and_Newer_Specifics">section 1.3</a>).</p>
+<p><br>On non-Windows operating systems you can choose any location for the extracted location of the files as long as you have the correct permission and access for the folder chosen.</p>
+<p><br></p>
+
+<a name="Installation"></a><h2>3.3.&nbsp;Installation <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>On Windows you now need to run the installer, using the folder you have decided on along with ensuring the option to install the documentation has been checked. Doing this will install the documentation and all related files which are referenced in the later stages of this guide.</p>
+<pre>If using Windows Vista or newer, ensure you install into a location which
+allows you to create / edit files preferably without having to respond to a
+UAC access prompt. See <a href="#Windows_Vista_and_Newer_Specifics">section 1.3</a> for more information about doing this.</pre>
+<p><br>On non-Windows you now need to extract all of the contents of the archives you have downloaded into the install location decided on.</p>
+<p><br></p>
+
+<a name="Setting_Up_The_Tools"></a><h2>3.4.&nbsp;Setting Up The Tools <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>The following sections are grouped together for what needs to be done in configuring and getting ready to start one or more of the officially provided tools. If you are not using one or more of them then you can skip the section as appropriate. Remember that you will need to have a valid source for use with the DNAS in order to have a listenable stream.</p><br>
+<pre>It is important to ensure the DNAS server is properly configured. This can be
+one you are setting up or an existing or hosted DNAS Servers as unless one
+is running it will prevent any sources being used from being setup correctly.</pre>
+<p><br></p>
+
+<a name="DNAS_Server"></a><h2>3.5.&nbsp;DNAS Server <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p><br></p>
+
+<a name="DNAS_Server_Configuration_Setup"></a><h2>3.5.1.&nbsp;Configuration Setup <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>To get the DNAS server running for the first time you will need to run the '<b>setup</b>' mode by running <b>setup.bat</b> (Windows) or <b>setup.sh</b> (non-Windows). This will start the DNAS server and open the setup page in the system's default browser and follow the instructions on the information which is requested.</p><p>If you do not have a default system browser or are running this in a shell, follow the instructions shown by the DNAS server from the open command-line / shell window.</p>
+<p><br>By following the 'setup mode' instructions, you will be prompted for common settings needed to run the DNAS server e.g. passwords. Once completed, the configuration settings will be saved as <b>sc_serv.conf</b> in the same folder as the DNAS server program file (assuming there were no issues. If thre is an issue then you will be notified and may need to resolve the issue or manually save the configuration file yourself.</p>
+<p><br>Once this is complete, you will then be able to exit 'setup mode' or continue running the DNAS server with the saved settings where it will then be in a state where it is ready to accept a stream source.</p>
+<p><br></p>
+
+<a name="Upgrading_an_Existing_Install"></a><h2>3.5.1.1.&nbsp;Upgrading an Existing Install <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>If you are upgrading the DNAS server from an earlier version, installing into the same folder or just replacing the <b>sc_serv[.exe]</b> program file and <b><a href="http://curl.haxx.se/ca/cacert.pem">cacert.pem</a></b> file is all that needs to be done. It is a good idea to also install the documentation for the new version so you have an appropriate local copy to refer to as needed. <br><br>This can be done for upgrading an existing 1.x or 2.x based DNAS server installation.</p>
+<p><br>If upgrading the DNAS server but are doing it on a different machine (as part of a migration) and / or location from where it was previously, if you already have a working configuration file then it can be copied over to the new location and you need to ensure it is named <b>sc_serv.conf</b> or <b>sc_serv.ini</b> as this will allow the DNAS server to automatically use it when started. Additionally if moving the configuration file, check that any paths referenced in the file are ok and exist with appropriate access for how you are running the DNAS server.</p>
+<p><br></p>
+
+<a name="Example_Configurations"></a><h2>3.5.1.2.&nbsp;Example Configurations <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>There are some example configuration files which can be found in the examples folder for the following scenarios if the setup mode is not appropriate for your needs or you would like to get a better idea of what a working configuration file can look like:</p>
+<p style="padding-left:25px;">sc_serv_simple  - shows how to get a simple single-stream setup working<br>
+sc_serv_basic   - shows how to get a more multi-stream setup working<br>
+sc_serv_public  - shows how to make a public server from sc_serv_basic<br>
+sc_serv_relay   - shows how to relay another source</p>
+<p>There is more information about these example configurations in <a href="DNAS_Server.html#Example_Configurations">DNAS Server - section 8</a> and these are provided for those not happy with the 'setup mode' or prefer to do things manually for specific configurations of the DNAS server.</p>
+<p><br></p>
+
+<a name="Starting_the_DNAS_Server"></a><h2>3.5.2.&nbsp;Starting the Server <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr><br>
+<pre>If the DNAS server was not stopped after running the 'setup mode' then
+this step is only needed when you next decide to start the DNAS server.</pre>
+<br><div class="serv"><a href="res/Console_Windows.png" title="DNAS Server Started on Windows"><img class="serv" alt="Setup Mode Running" src="res/Console_Windows.png"></a></div><p>To start the DNAS server assuming the config file is either <b>sc_serv.conf</b> or <b>sc_serv.ini</b>, you just need to run the <b>sc_serv[.exe]</b> program file according to the operating system used:</p>
+<p style="padding-left:25px;">Windows&nbsp;&nbsp;-&nbsp;&nbsp;<b>sc_serv.exe</b> or <b>start.bat</b><br>
+Non-Windows&nbsp;&nbsp;-&nbsp;&nbsp;<b>./sc_serv</b> or <b>./start.sh</b></p>
+<p><br>This will load the DNAS server with the details entered during setup (<a href="#DNAS_Server_Configuration_Setup">section 3.5.1</a>) or from an existing configuration when upgrading from an earlier version (<a href="#Upgrading_an_Existing_Install">section 3.5.1.1</a>).</p>
+<div class="serv"><a href="res/Console_Linux.png" title="DNAS Server Started on Linux"><img class="serv" alt="Setup Mode Running" src="res/Console_Linux.png"></a></div>
+<p><br>To start the DNAS server with a specific configurartion file, enter the correct command string for the operating system you are using like the following where <b>&lt;conf&gt;</b> is the name of the configuration file in the same directory as the DNAS server program file:</p>
+<p style="padding-left:25px;">Windows&nbsp;&nbsp;-&nbsp;&nbsp;<b>sc_serv.exe &lt;conf&gt;</b> (in the command-line) or drag and drop <b>&lt;conf&gt;</b> onto <b>sc_serv.exe</b><br>
+Non-Window&nbsp;&nbsp;-&nbsp;&nbsp;<b>./sc_serv &lt;conf&gt;</b></p>
+<p><br>You can alternatively edit <b>start.bat</b> or <b>start.sh</b> (as applicable) and append <b>&lt;conf&gt;</b> to the end of the line and then run <b>start.bat</b> or <b>./start.sh</b> directly. If the <b>&lt;conf&gt;</b> file cannot be found, the DNAS server will attempt to provide an appropriate file to use and will prompt you to select one if possible before failing and aborting running.</p>
+<p><br>For more information on running the DNAS server see <a href="DNAS_Server.html">DNAS Server</a> and the relevant section for the operating system you are using:</p>
+<p style="padding-left:25px;"><b>Windows</b>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="DNAS_Server.html#Run_in_the_Console">3.2.3</a> (or <a href="DNAS_Server.html#Windows">3.2</a> for more advanced options)<br>
+<b>Linux / Raspbian</b>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="DNAS_Server.html#Run_as_a_Non-Daemon">3.3.3</a> (or <a href="DNAS_Server.html#Linux_/_Mac_OS_X_/_BSD">3.3</a> for more advanced options)</p>
+<p><br>Those sections also detail how to run the DNAS server in service mode (Windows) or as a daemon (non-Windows) which allows the DNAS server to keep running in the background without keeping a command-line or shell window open.</p>
+<p><br></p>
+
+<a name="Errors_Running_the_DNAS_Server"></a><h2>3.5.3.&nbsp;Errors Running the DNAS Server <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<br><pre>Skip this section if you do not experience errors when trying to run the DNAS server.</pre>
+<br><div class="serv"><a href="res/Console_Error.png" title="Setup Mode Running"><img class="serv" alt="Setup Mode Running" src="res/Console_Error.png"></a></div><p>If an issue is reported in the DNAS server's logs then you will see lines with an appropriate type e.g. '<b>ERROR</b>' or '<b>WARN</b>' as well as seeing them shown with a different colour (if looking at the command-line / shell window) where it will use <font color="red">red</font> for errors and <font color="FACC2E">yellow / orange</font> for warning messages.</p>
+<p><br>Error messages need to be resolved and in most cases will relate to the DNAS server not being able to be listed in the Directory or due to a networking related issue. Depending on the type of error, the DNAS server may continue to run or it will close e.g. if there are no configuration files which can be found.</p>
+<p><br>If the error message(s) still do not make sense then either double-check <a href="DNAS_Server.html#YP_Server_Errors">DNAS Server -
+section 4.15</a> or goto the SHOUTcast support forums <a href="http://forums.shoutcast.com/forumdisplay.php?f=140">forums.shoutcast.com/forumdisplay.php?f=140</a>
+and post your question / issue along with a copy of the log output including the error message. Remember that the more information you can provide to start with will make it easier for anyone else to help and give you a solution.</p>
+<p><br></p>
+
+<a name="Obtaining_an_Authhash"></a><h2>3.5.4.&nbsp;Obtaining an Authhash <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<br><pre>This is needed if you want the Stream to be listed in the Directory. If not make
+sure you have specified the DNAS server to be private or do so in the source.</pre>
+<br><div class="thumb"><a href="res/Start.png" title="Server Summary Page"><img class="thumb" alt="Server Summary Page" src="res/Start.png"></a></div><p>With the DNAS server running, you will need to create the authhash for the stream(s) you want to have listed in the Directory. This is done via the '<b>Server Summary</b>' page.</p>
+<p>This works best when a source has been connected to the DNAS server, though you can still create one for any streams which have been configured but do not currently have a source connected. See <a href="DNAS_Server_Authhash_Management.html#Creating"><b>here</b></a> for how to create an authhash.</p>
+<p>You can also find additonal information on how to <a href="DNAS_Server_Authhash_Management.html#Manual_Editing">manually edit</a> an authhash such as when re-using an existing one to setup a server group or if setting up a different bitrate of an existing stream.</p>
+<p><br></p>
+
+<a name="Source_DSP"></a><h2>3.6.&nbsp;Source DSP <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+
+<a name="Installing_the_Source_DSP"></a><h2>3.6.1.&nbsp;Installing the Source DSP <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr><br>
+<pre>Skip this if you are not setting up the Source DSP plug-in in Winamp.</pre>
+<p><br>If you want to provide a stream and are going to use Winamp and the Source DSP then you just need to make sure to install the Source DSP plug-in using its installer and check the option to set it as the default DSP plug-in in Winamp.</p>
+<p><br></p>
+
+<a name="Starting_the_Source_DSP"></a><h2>3.6.2.&nbsp;Starting the Source DSP <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<div class="thumb_about"><a href="res/Select_Source_DSP_in_Winamp.png" title="Select Source DSP in Winamp's Preferences"><img class="about" alt="Select Source DSP in Winamp's Preferences" src="res/Select_Source_DSP_in_Winamp.png"></a></div>
+<p>Using the Source DSP plug-in requires the plug-in to be set as the current DSP plug-in which is done by going to '<b>Winamp Preferences</b> -> <b>Plug-ins</b> -> <b>DSP/Effect</b>' and selecting '<b>SHOUTcast Source DSP &lt;version&gt;</b>' (<font style="color:red;"><b>*</b></font>) from the list of plug-ins shown.</p>
+<p>When this entry is selected then the plug-in's configuration window will be opened and from there the plug-in will be in a state where a connection can be started via the '<b>Connect</b>' button on the '<b>Output</b>' tab once all of the login details have been entered.</p>
+<p>(<font style="color:red;"><b>*</b></font>) The string &lt;version&gt; would be the actual version of the plug-in which is installed.</p>
+<p><br></p>
+
+<a name="Configuring_the_Source_DSP"></a><h2>3.6.3.&nbsp;Configuring the Source DSP <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<div class="thumb_dsp"><a href="res/Output_tag_configuration_error.png" title="SHOUTcast Source Output Tab showing password configuration error"><img class="thumb_dsp" alt="SHOUTcast Source Output Tab showing password configuration error" src="res/Output_tag_configuration_error.png"></a></div>
+<p>Once the Source DSP has been installed, you will need to enter the login details needed for it to be able to connect to the DNAS server. The Source DSP should highlight values which need to be entered which can be obtained from the appropriate configuration files.</p>
+<p>To get the Source DSP connected to the DNAS server, <a href="http://wiki.shoutcast.com/wiki/Source_DSP_Plug-in_Configuration_Examples">Source DSP Plug-in Configuration Examples</a> shows where and what values in their configuration files are needed for the Source DSP.</p>
+<p><br></p>
+
+<a name="Completion"></a><h2>3.7.&nbsp;Completion <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>You should now be up and running with a working SHOUTcast system. Happy broadcasting!</p>
+<p>If things are still not running then go back over the section(s) relating to the tool(s) you are having issues with and make sure that you have followed things otherwise please see the next section (<a href="#Further_Information">4.0</a>) on what you can do to get help in trying to resolve issues.</p>
+<p><br></p>
+
+<a name="Further_Information"></a><h2>4.&nbsp;Further Information <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>If you have followed the setup steps detailed in <a href="#Getting_Installed">section 3</a> and are still having issues with getting the tools running or working together to achieve a certain result then first make sure you have the currently supported version of the tool(s) in case it is a bug in the tool(s) which has already been fixed. You can check this via the links referenced in <a href="#Download_the_Correct_Version">section 3.1</a> and especially the forum link of the most current versions available.</p>
+<p><br>If installing the latest version does not help or if you already are using the latest version of the tool(s) or if the feature is not available then please goto the SHOUTcast support forums: <a href="http://forums.shoutcast.com/forumdisplay.php?f=140">http://forums.shoutcast.com/forumdisplay.php?f=140</a></p>
+<p><br>Make sure if you are reporting issues to provide as much information as possible for the SHOUTcast users who use the tools including the following information:</p>
+<p style="padding-left:25px;"><ul class="n">
+<li>Your SHOUTcast setup including all versions of the tools being used</li>
+<li>The issue you are experiencing</li>
+<li>The steps needed to reproduce the issue</li>
+<li>Anything else useful especially if you have been tinkering with options before the issue appeared</li>
+</ul>
+<p><br>Remember when you post an issue that providing as much information in a clear and concise manner will make it easier for anyone who can help to be able to understand the issue you have. This is important as not everyone visiting the forum are native English speakers.</p>
+<p><br></p>
+
+<a name="Related_Documentation"></a><h2>4.1.&nbsp;Related Documentation <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>Documentation can be found online - <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_Broadcaster">wiki.shoutcast.com/wiki/SHOUTcast_Broadcaster</a> though this may not relate to the version which has been installed and it is generally recommended to check the documentation installed with the tool(s) installed as they will relate to that version (which can be found in the 'docs' folder).</p>
+<p>Please remember that with the SHOUTcast tools being designed to work on both the Windows and non-Windows operating systems, there is information included in the documentation which can relate to either of these platforms. So when reading through the documentation, only follow the information which relates to the operating system you are using.</p>
+<p><br></p>
+
+<a name="Glossary"></a><h2>5.&nbsp;Glossary <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p><b><i>Client</i></b> - This is a program run which will connect to the server e.g. Winamp.</p>
+<p><b><i>DNAS</i></b> - This is an abbreviation of Distributed Network Audio Server and refers to the way SHOUTcast systems are intended in providing a Stream to multiple Clients.</p>
+<p><b><i>Directory</i></b> - This is a shortening of 'SHOUTcast Radio Directory' and is the site where if you have a public Stream where you will then be able to find your Stream.</p>
+<p><b><i>Server</i></b> - This is the program which is run on a machine to provide to Clients the Stream.</p>
+<p><b><i>Source</i></b> - This is a program or an input device e.g. the line-in connection on the server which is providing the data for the Stream.</p>
+<p><b><i>Stream</i></b> - This is the data which is provided from the server to the connected Client and is best thought of like the flow of water in a stream in how it goes from the server (up stream) to the Client (down stream).</p>
+<p><b><i>YP</i></b> - This is an abbreviation of YellowPages and refers to the SHOUTcast Radio Directory listing which makes it easier for Clients to search for and then find your Stream.</p>
+<p><b><i>dsp_sc</i></b> - This is the name the SHOUTcast Source DSP plug-in is otherwise known as.</p>
+<p><b><i>sc_serv</i></b> or <b><i>sc_serv2</i></b> - This is the name the SHOUTcast DNAS server is otherwise known as.</p>

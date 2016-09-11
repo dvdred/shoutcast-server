@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SHOUTcast DNAS Server Readme</title>
+<style type="text/css">body,table,textarea,pre{font-family:Arial,Helvetica,sans-serif;font-size:10pt;}.header{background-color:rgb(66,164,189);color:white;padding:1px;}a:link,a:visited{color:#2762AE;text-decoration:none;}a:hover{text-decoration:underline;}ul{list-style-type:none;text-align:left;}ul.n{list-style-type:square;text-align:left;}pre{background-color:#F0F0F0;border:1px solid #CCCCCC;font-weight:bold;padding:5px 10px 5px 10px;display:inline-block;margin-top:0;margin-bottom:0;margin-left:25px;}pre.src{border:0;font-family:monospace;background-color:white;}span.b{font-weight:normal;color:#3366CC;}span.c{font-style:italic;font-weight:normal;color:#808080;}span.v{font-weight:normal;}span.r{font-weight:normal;color:#000066;}span.s{font-weight:normal;color:#FF0000;}#toc{border:1px solid #CCCCCC;padding:0 5px 0 5px;text-align: center;}p.ver{font-size:85%;margin-top:-1.5em;text-align:center;}.thumb{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:202px;}.serv{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:252px;}.pages{white-space:nowrap;padding-right:25px;}img{width:200px;}img.serv{width:250px;}img.thumb{border:1px solid #CCCCCC;}hr{border:0;background-color:#CCCCCC;height:1px;)</style>
+</head>
+<div class="header">
+<h1 align="center">SHOUTcast DNAS Server 2.5</h1>
+<p class="ver">(Last Updated 10 May 2016)</p>
+</div>
+<p><br>Thank you for choosing SHOUTcast (powered by Radionomy)! Now that you have downloaded the SHOUTcast DNAS (Distributed Network Audio Software) server, you will find all associated documentation, some configuration examples and related files to aid with getting the SHOUTcast DNAS server up and running. You can check what changes and fixes have been made with this release by looking through the provided <b><a href="DNAS_Server_Changelog.html">changelog</a></b>.</p>
+<p>The documentation and related files provided with the DNAS server are the correct for the version of the DNAS server version installed. You can also find online copies of the documentation <a target="_blank" href="http://wiki.shoutcast.com/wiki/SHOUTcast_Broadcaster"><b>via the wiki</b></a> however these may not relate to the DNAS server version installed. If in doubt use the local documentation provided with the DNAS server being used.</p>
+<br><h2>Core</h2><hr>
+<p><b>sc_serv[.exe]</b> - The SHOUTcast DNAS server program file (<i>this is required</i>)</p>
+<p><b>setup[.bat/.sh]</b> - Command used to run the DNAS server in 'Setup Mode' which allows for quick setup of the DNAS server (<i>recommended if you need a simple setup or are new to setting up a DNAS server</i>)</p>
+<br><h2>Documentation</h2><hr>
+<p>These are all of the supporting documents provided with the DNAS server; from how to get it setup to what the JSON response for bandwidth usage should look like (and everything in-between).<br><br></p>
+<p><b><a href="docs/Getting_Started.html">Getting Started</a></b> - Guide for setting up and configuring the DNAS server for use</p>
+<p><b><a href="docs/DNAS_Server.html">DNAS Server</a></b> - Core documentation for the DNAS server's options and features; from how to run it, to the public and private API methods it provides</p>
+<p><b><a href="docs/DNAS_Server_Authhash_Management.html">Authhash Management</a></b> - How to manage authhashes inside the DNAS server</p>
+<p><b><a href="docs/DNAS_Server_Source_Support.html">Source Support</a></b> - How to connect sources to the DNAS server</p>
+<p><b><a href="docs/DNAS_Server_JSON_Responses.html">JSON Responses</a></b> - Documentation showing the JSON responses available</p>
+<p><b><a href="docs/DNAS_Server_XML_Responses.html">XML Responses</a></b> - Documentation showing the XML responses available</p>
+<p><br>Additional information can be found on the <a href="http://wiki.shoutcast.com"><b>SHOUTcast wiki</b></a> for broadcasting and developer aspects of the DNAS server as well as other parts of the SHOUTcast platform from the SHOUTcast API to SHOUTcast client implementation requirements.</p>
+<br><h2>Examples</h2><hr><br>
+<pre>It is recommended to use the 'Setup Mode' actions for most new setup needs.</pre>
+<p>These examples are provided as a means to see what a working configuration file looks like under some of the common use cases for a DNAS server.<br><br></p>
+<p>To use these examples, you will need to copy the required files (check the dependencies noted) into the folder where sc_serv[.exe] is and after reading and editing them as needed, then start the DNAS start with the one required (which may be easier if you rename the intended file as sc_serv.conf so the DNAS will automatically load it).</p>
+<table>
+<tr valign="top"><td><b>examples/sc_serv_simple.conf</b></td><td style="padding-left:15px;">Simple configuration file for running a basic DNAS server. This has no dependencies on the other examples.<br><br></td></tr>
+<tr valign="top"><td><b>examples/sc_serv_basic.conf</b></td><td style="padding-left:15px;">This is used by the sc_serv_public.conf and sc_serv_relay.conf to show how core settings can be shared between configurations.<br><br></td></tr>
+<tr valign="top"><td><b>examples/sc_serv_public.conf</b></td><td style="padding-left:15px;">This has a dependency upon sc_serv_basic.conf.<br><br></td></tr>
+<tr valign="top"><td><b>examples/sc_serv_relay.conf</b></td><td style="padding-left:15px;">This has a dependency upon sc_serv_basic.conf.<br><br></td></tr>
+<tr><td colspan="2"><pre align="left">The debugging options can now be changed via the server admin
+page for when you may not have access to the configuration file.</pre></td></tr>
+</table>
+<br><h2>Miscellaneous</h2><hr>
+<p>These are supporting files mainly relating to the setup options and the configuration examples. If in doubt then do not alter any of the files as this may break other features (especially if altering the 'setup' folder.<br><br></p>
+<p><b>setup folder</b> - This contains files needed for the DNAS server's 'Setup Mode'. <b>Do not modify or run this separately as it will not work unless run within the DNAS server.</b> To run the 'Setup Mode', run <b>setup[.bat/.sh]</b></p>
+<p><b>control folder</b> - Used with the configuration examples to hold the sc_serv.ban and sc_serv.rip files generated by the DNAS server when it is running</p>
+<p><b>logs folder</b> - Used with the configuration examples to hold the DNAS server log files</p>
+<p><b>cacert.pem</b> - Required to ensure HTTPS support works correctly where it is used. Newer versions of the file can be obtained from <a href="http://curl.haxx.se/ca/cacert.pem"><b>http://curl.haxx.se/ca/cacert.pem</b></a> as required.</p>
+<pre>Do not remove the cacert.pem file from its
+location unless you are instructed to do so!</pre>
+<p><b>tos.txt</b> - SHOUTcast Terms of Service (TOS) details [non-Windows only - note: for Windows users this is in the installer]</p>
+<p><b>uninstall_shoutcast-dnas-v2.exe</b> - Uninstaller for the DNAS server [Windows only]</p>

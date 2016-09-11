@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SHOUTcast DNAS Server Source Support</title>
+<style type="text/css">body,table,textarea,pre{font-family:Arial,Helvetica,sans-serif;font-size:10pt;}.header{background-color:rgb(66,164,189);color:white;padding:1px;}a:link,a:visited{color:#2762AE;text-decoration:none;}a:hover{text-decoration:underline;}ul{list-style-type:none;text-align:left;}ul.n{list-style-type:square;text-align:left;}pre{background-color:#F0F0F0;border:1px solid #CCCCCC;font-weight:bold;padding:5px 10px 5px 10px;display:inline-block;margin-top:0;margin-bottom:0;margin-left:25px;}pre.src{border:0;font-family:monospace;background-color:white;}span.b{font-weight:normal;color:#3366CC;}span.c{font-style:italic;font-weight:normal;color:#808080;}span.v{font-weight:normal;}span.r{font-weight:normal;color:#000066;}span.s{font-weight:normal;color:#FF0000;}#toc{border:1px solid #CCCCCC;padding:0 5px 0 5px;text-align: center;}p.ver{font-size:85%;margin-top:-1.5em;text-align:center;}.thumb{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:202px;}.serv{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:252px;}.pages{white-space:nowrap;padding-right:25px;}img{width:200px;}img.serv{width:250px;}img.thumb{border:1px solid #CCCCCC;}hr{border:0;background-color:#CCCCCC;height:1px;)</style>
+<script type="text/javascript">if(window.showTocToggle){var tocShowText="show";var tocHideText="hide";showTocToggle()}function showTocToggle(){if(document.createTextNode){var linkHolder=document.getElementById('toctitle');if(!linkHolder){return}var outerSpan=document.createElement('span');outerSpan.className='toctoggle';var toggleLink=document.createElement('a');toggleLink.id='togglelink';toggleLink.className='internal';toggleLink.href='javascript:toggleToc()';toggleLink.appendChild(document.createTextNode(tocHideText));outerSpan.appendChild(document.createTextNode('['));outerSpan.appendChild(toggleLink);outerSpan.appendChild(document.createTextNode(']'));linkHolder.appendChild(document.createTextNode(' '));linkHolder.appendChild(outerSpan);var cookiePos=document.cookie.indexOf("source_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+13)==1){toggleToc()}}}function changeText(el,newText){if(el.innerText){el.innerText=newText}else if(el.firstChild&&el.firstChild.nodeValue){el.firstChild.nodeValue=newText}}function toggleToc(){var toc=document.getElementById('toc').getElementsByTagName('ul')[0];var toggleLink=document.getElementById('togglelink');if(toc&&toggleLink&&toc.style.display=='none'){changeText(toggleLink,tocHideText);document.getElementById('toc').style.cssFloat='left';toc.style.display='block';document.cookie="source_hidetoc=0"}else{changeText(toggleLink,tocShowText);document.getElementById('toc').style.cssFloat='';toc.style.display='none';document.cookie="source_hidetoc=1"}}window.onload=function(){var cookiePos=document.cookie.indexOf("source_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+13)==1){toggleToc()}}
+</script>
+</head>
+<div class="header">
+<h1 align="center">SHOUTcast DNAS Server Source Support</h1>
+<p class="ver">(Last Updated 16 March 2015)</p>
+</div>
+<table id="toc" style="float:left;margin-right:40px;margin-bottom:5px;"><tbody><tr><td>
+<div id="toctitle"><b>Contents</b> <span class="toctoggle">[<a id="togglelink" class="internal" href="javascript:toggleToc()">hide</a>]</span></div>
+<ul style="padding-left:0px;">
+<li><a href="#Introduction">1 Introduction</a></li>
+<li><a href="#How_It_Works">2 How It Works</a></li>
+<li><a href="#How_To_Do_It">3 How To Do It</a></li>
+<ul>
+<li><a href="#DJ_/_User_ID">3.1 DJ / User ID</a></li>
+</ul>
+<li><a href="#Is_There_Anything_Else?">4 Is There Anything Else?</a></li>
+<li><a href="#Additional_Information">5 Additional Information</a></li>
+</ul>
+</td></tr></tbody></table>
+
+<a name="Introduction"></a><h2>1.&nbsp;Introduction</h2>
+<hr>
+<p>The SHOUTcast DNAS server since the introduction of v2.0 has been able to provide multiple streams from a single DNAS server instance. To be able to do this, it has required the source for the stream to be a relay (pulling a copy of the stream from another server) or by using SHOUTcast 2 protocol compatible source client software (where you specify the stream number to connect to as part of the source configuration).</p>
+<p>The downside of this is that unless you are relaying or using an updated source client, existing source client software which is only SHOUTcast 1 protocol compatible has only been able to connect as the source from stream #1 (due to not being able to indicate the required stream number). There was a partial workaround by using the 'streamportlegacy' option but this had issues and was marked as an experimental feature.</p>
+<p>With the release of the v2.4.7 DNAS server (and future versions), not being able to use multiple SHOUTcast 1 protocol compatible source software to connect as the source for any stream on the DNAS server has now been removed. The changes to support this will typically not require any source client software updates as this is all handled by the DNAS server as long as the correct password is provided.</p>
+<p><br></p>
+
+<a name="How_It_Works"></a><h2>2.&nbsp;How It Works <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>With the SHOUTcast 2 protocol, the ability to specify the desired stream for the source client to be used for is a core part of the protocol via the required stream identifier. Whereas the SHOUTcast 1 protocol was designed before it was considered to be able to provide multiple streams from a single DNAS server instance (as the v2.x DNAS server supports) and so there is no direct means in the protocol to specify the stream identifier.</p>
+<p>All SHOUTcast source client connections require a password to be provided irrespective of the SHOUTcast protocol version being used and with the SHOUTcast 1 protocol, this is the first primary piece of information sent to the DNAS server when the source is attempting to connect.</p>
+<p>By manipulating the password provided from a SHOUTcast 1 protocol compatible source client to also include the intended stream identifier, it is now possible for the DNAS server to know the intended stream the source client is to be used for. This is what will now allow for the v2.4.7 DNAS server (and future versions) to be able to support multiple SHOUTcast 1 protocol compatible source clients along with the added benefit of not requiring source client software updates (though native SHOUTcast 2 protocol support is preferred over SHOUTcast 1 protocol based source clients).</p>
+<p><br></p>
+
+<a name="How_To_Do_It"></a><h2>3.&nbsp;How To Do It <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>To connect a SHOUTcast 1 protocol compatible source client to a specific stream then you can append :<b>#&lt;sid&gt;</b> to the end of the password to be used so you have <b>&lt;password&gt;:#&lt;sid&gt;</b> (where &lt;password&gt; is the configured stream password and &lt;sid&gt; is the required stream identifier).</p>
+<p>e.g.</p>
+<p>to connect to <b>stream #2</b> with the configured password as <b>bob</b></p>
+<p>the value to enter in the source client password field is: <b>bob:#2</b></p>
+
+<pre>stream #1 is the default stream assumed for a SHOUTcast 1 protocol compatible source client
+and so it is not necessary to add <b>:#1</b> to the end of the password, though it is ok to do this</pre>
+
+
+<p>The colon character is now a reserved character and cannot be used as a value in passwords. If the DNAS server detects a colon then the password will be rejected and the DNAS server may abort running.</p>
+<p><br></p>
+
+<a name="DJ_/_User_ID"></a><h2>3.1.&nbsp;DJ / User ID <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>In addition to the ability to provide the stream identifier, it is also possible to provide a DJ / User ID for the source connection. This is done in a similar manner but places the DJ / User ID value at the start of the password field</p>
+<p>e.g.</p>
+<p><b>&lt;dj&lt;:&lt;password&gt;</b></p>
+<p>or</p>
+<p><b>&lt;dj&gt;:&lt;password&gt;:#&lt;sid&gt;</b></p>
+<pre>&lt;dj&gt; is the value to send
+&lt;password&gt; is the configured stream password
+&lt;sid&gt; is the required stream identifier</pre>
+<p>This support is currently used just to see which DJ / User is connected as the source client for the stream, however in future DNAS releases then this may be used as a way to do additional controlling of the source client connections to the DNAS server. </p>
+<p><br></p>
+
+<a name="Is_There_Anything_Else?"></a><h2>4.&nbsp;Is There Anything Else? <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>To ensure that SHOUTcast 1 protocol compatible source clients areable to access the DNAS server, you may need to open an additional port to just <a href="DNAS_Server.html#Networking"><b>portbase</b></a> to allow the source connection to be made if it is not from the same machine or the same local network as the DNAS server i.e. you are making an external source connection.</p>
+<pre>If the source is running on the same machine or local network then you
+will not need to open any additional ports for the connection to work.</pre>
+<p><br>How to do this will depend upon your setup but often requires ports to be opened on the router and in the Operating System's firewall. You should be able to find information for your router on how to do port forwarding from <a href="http://www.portforward.com"><b>www.portforward.com</b></a> (which only requires TCP connections to be forwarded and not UDP connections).</p>
+<p>Usually you will be forwarding port 8000 as well as port 8001 (which is the actual port that the SHOUTcast 1 protocol uses for source connections). If you have changed <a href="DNAS_Server.html#Networking"><b>portbase</b></a> from it's default value then you will need to ensure that <b>portbase+1</b> is opened so that the external source connection can be made. You can use <a href="http://www.yougetsignal.com/tools/open-ports/"><b>www.yougetsignal.com/tools/open-ports</b></a> to confirm that the port forwarding is working correctly (just ensure the DNAS server is actually running at the time!).</p>
+<pre>If not done correctly then the source connection will fail
+either due to a connection timeout or an unknown error code.</pre>
+<p><br></p>
+
+<a name="Additional_Information"></a><h2>5.&nbsp;Additional Information <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<div class="thumb"><a href="res/View_Source_Connection_Details.png" title="View Source Connection Details"><img class="thumb" alt="View Source Connection Details" src="res/View_Source_Connection_Details.png"></a></div>
+<p>If you are still unsure about what to enter into the source client password field, the <b>View Source Connection Details</b> page (found on the DNAS server admin summary page) which shows the appropriate password to use for the different SHOUTcast protocol source clients via the <b>Password</b> and <b>Legacy Password</b> values shown.</p>
+<p><br></p>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SHOUTcast DNAS Server JSON / JSON-P Responses</title>
+<style type="text/css">body,table,textarea,pre{font-family:Arial,Helvetica,sans-serif;font-size:10pt;}.header{background-color:rgb(66,164,189);color:white;padding:1px;}a:link,a:visited{color:#2762AE;text-decoration:none;}a:hover{text-decoration:underline;}ul{list-style-type:none;text-align:left;}ul.n{list-style-type:square;text-align:left;}pre{background-color:#F0F0F0;border:1px solid #CCCCCC;font-weight:bold;padding:5px 10px 5px 10px;display:inline-block;margin-top:0;margin-bottom:0;margin-left:25px;}pre.src{border:0;font-family:monospace;background-color:white;}span.b{font-weight:normal;color:#3366CC;}span.c{font-style:italic;font-weight:normal;color:#808080;}span.v{font-weight:normal;}span.r{font-weight:normal;color:#000066;}span.s{font-weight:normal;color:#FF0000;}#toc{border:1px solid #CCCCCC;padding:0 5px 0 5px;text-align: center;}p.ver{font-size:85%;margin-top:-1.5em;text-align:center;}.thumb{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:202px;}.serv{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:252px;}.pages{white-space:nowrap;padding-right:25px;}img{width:200px;}img.serv{width:250px;}img.thumb{border:1px solid #CCCCCC;}hr{border:0;background-color:#CCCCCC;height:1px;)</style>
+<script type="text/javascript">if(window.showTocToggle){var tocShowText="show";var tocHideText="hide";showTocToggle()}function showTocToggle(){if(document.createTextNode){var linkHolder=document.getElementById('toctitle');if(!linkHolder){return}var outerSpan=document.createElement('span');outerSpan.className='toctoggle';var toggleLink=document.createElement('a');toggleLink.id='togglelink';toggleLink.className='internal';toggleLink.href='javascript:toggleToc()';toggleLink.appendChild(document.createTextNode(tocHideText));outerSpan.appendChild(document.createTextNode('['));outerSpan.appendChild(toggleLink);outerSpan.appendChild(document.createTextNode(']'));linkHolder.appendChild(document.createTextNode(' '));linkHolder.appendChild(outerSpan);var cookiePos=document.cookie.indexOf("json_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+13)==1){toggleToc()}}}function changeText(el,newText){if(el.innerText){el.innerText=newText}else if(el.firstChild&&el.firstChild.nodeValue){el.firstChild.nodeValue=newText}}function toggleToc(){var toc=document.getElementById('toc').getElementsByTagName('ul')[0];var toggleLink=document.getElementById('togglelink');if(toc&&toggleLink&&toc.style.display=='none'){changeText(toggleLink,tocHideText);document.getElementById('toc').style.cssFloat='left';toc.style.display='block';document.cookie="json_hidetoc=0"}else{changeText(toggleLink,tocShowText);document.getElementById('toc').style.cssFloat='';toc.style.display='none';document.cookie="json_hidetoc=1"}}window.onload=function(){var cookiePos=document.cookie.indexOf("json_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+13)==1){toggleToc()}}</script>
+</head>
+<div class="header">
+<h1 align="center">SHOUTcast DNAS Server JSON / JSON-P Responses</h1>
+<p class="ver">(Last Updated 16 March 2015)</p>
+</div>
+<table id="toc" style="float:left;margin-right:40px;margin-bottom:5px;"><tbody><tr><td>
+<div id="toctitle"><b>Contents</b> <span class="toctoggle">[<a id="togglelink" class="internal" href="javascript:toggleToc()">hide</a>]</span></div>
+<ul style="padding-left:0px;">
+<li><a href="#Introduction">1 Introduction</a></li>
+<li><a href="#How_to_Access_the_JSON_Responses">2 How to Access the JSON Responses</a>
+<ul>
+<li><a href="#Full_Server_Summary">2.1 Full Server Summary</a></li>
+<li><a href="#General_Server_Summary">2.2 General Server Summary</a></li>
+<li><a href="#Listener_Statistics">2.3 Listener Statistics</a></li>
+<li><a href="#Song_History">2.4 Song History</a></li>
+<li><a href="#Stream_Metadata">2.5 Stream Metadata</a></li>
+<li><a href="#Stream_Configurations">2.6 Stream Configurations</a></li>
+<li><a href="#Nextsongs">2.7 Nextsongs</a></li>
+<li><a href="#Server_Statistics">2.8 Server Statistics</a></li>
+<li><a href="#Bandwidth_Usage">2.9 Bandwidth Usage</a></li>
+<li><a href="#Directory_Status">2.10 Directory Status</a></li>
+<li><a href="#7.html">2.11 7.html (Legacy)</a>
+</ul></ul>
+</td></tr></tbody></table>
+
+<a name="Introduction"></a><h2>1.&nbsp;Introduction</h2>
+<hr>
+<p>The purpose of this document is to show you the information and format of the different JSON and JSON-P responses which the DNAS server (sc_serv) is able to provide to allow access to the information about current connections or available stream configurations for example.</p>
+<p><br></p>
+
+<a name="How_to_Access_the_JSON_Responses"></a><h2>2.&nbsp;How to Access the JSON Responses <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>With the 2.x DNAS server being able to support multiple streams compared to the single stream which a 1.x DNAS server supports, to access information for each stream requires you specify the stream identifier of the stream that you require.</p>
+<p>For example to access the General Server Summary (<a href="#General_Server_Summary" title="">see section 2.2</a>) for stream identifier <b>#1</b> then the following would be used:</p>
+<pre>http://&lt;serverip&gt;:&lt;port&gt;/admin.cgi?mode=viewjson&amp;page=1&amp;sid=1</pre>
+<br>or<br>
+<pre>http://&lt;serverip&gt;:&lt;port&gt;/stats?sid=1&amp;json=1</pre>
+<br>or<br>
+<pre>http://&lt;serverip&gt;:&lt;port&gt;/stats?sid=1&amp;json=1&amp;callback=func</pre>
+<p>To access the same information for stream identifier <b>#2</b> then replace <b>1</b> with <b>2</b> and so on for any of the streams you want to obtain the information from.<br><br></p>
+<pre>Throughout the rest of this document, it is assumed you know how to specify the
+stream identifier you require so only the base part of the url is shown i.e. /stats
+instead of /stats?sid=# where # is the stream identifier. It is also assumed that
+you know to add &amp;callback=func when attempting to retrieve a JSON-P response.</pre>
+<p><br></p>
+
+<a name="Full_Server_Summary"></a><h2>2.1.&nbsp;Full Server Summary <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?mode=viewjson</b> option, the JSON response consists of the general stream details which can be found over the administration and public summary pages (if access to them is enabled) in addition to details of the Listener Statistics (<a href="#Listener_Statistics" title="">see section 2.3</a>) and Song History (<a href="#Song_History" title="">see section 2.4</a>).</p>
+<p>If you only require a specific set of information instead of everything then you should use the <b>&amp;page=X</b> parameter as the JSON response from this response is a combination of the following responses:</p>
+<p style="padding-left:25px;"><b>General Server Summary</b> (<a href="#General_Server_Summary" title="">section 2.2</a>)<br><b>Listener Statistics</b> (<a href="#Listener_Statistics" title="">section 2.3</a>)<br><b>Song History</b> (<a href="#Song_History" title="">section 2.4</a>)</p>
+<p><br></p>
+
+<a name="General_Server_Summary"></a><h2>2.2.&nbsp;General Server Summary <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?mode=viewjson&amp;page=1</b> or the public <b>/stats?json=1</b> option, the JSON response consists of the general stream details which can be found over the administration and public summary pages (if access to them is enabled). This is a compact version of what is shown in the 'Full Server Summary' (<a href="#Full_Server_Summary" title="">see section 2.1</a>) and acts as the equivalent of 7.html from the 1.x DNAS server (<a href="#Equivalent_of_7.html" title="">see section 3.0</a>).</p>
+<p>Example:</p>
+<pre class="src">  {
+    <span class="b">"currentlisteners"</span>:<span class="s">0</span>,
+    <span class="b">"peaklisteners"</span>:<span class="s">0</span>,
+    <span class="c">// the maximum number of listener connections potentially allowed which depends</span>
+    <span class="c">// on the maxuser and streammaxuser config options and other stream configs</span>
+    <span class="b">"maxlisteners"</span>:<span class="s">32</span>,
+    <span class="b">"uniquelisteners"</span>:<span class="s">0</span>,
+    <span class="c">// average time (seconds) of any active listener connections</span>
+    <span class="b">"averagetime"</span>:<span class="s">0</span>,
+
+    <span class="c">// these are some information about the stream as shown in listener clients, etc</span>
+    <span class="b">"servergenre"</span>:<span class="b">"Misc"</span>,
+    <span class="c">// there can also be: servergenre2, servergenre3, servergenre4 and </span>
+    <span class="c">// servergenre5 elements depending on how the stream has been setup</span>
+
+    <span class="b">"serverurl"</span>:<span class="b">"http:\/\/my_website.com"</span>,
+    <span class="b">"servertitle"</span>:<span class="b">"Test Server"</span>,
+
+    <span class="c">// if the SHOUTcast source provides current and next song titles then</span>
+    <span class="c">// they will be listed. if not known then these will be empty entries</span>
+    <span class="b">"songtitle"</span>:<span class="b">"The Current Song"</span>,
+    <span class="b">"nexttitle"</span>:<span class="b">"The Next Song"</span>,
+
+    <span class="c">// User ID of the source which typically comes from a SHOUTcast 2.x source</span>
+    <span class="c">// note: this can be present if a 1.x source is in use due to metadata updates</span>
+    <span class="b">"dj"</span>:<span class="b">"DJ Funky"</span>,
+
+    <span class="c">// if the SHOUTcast source provides an associated song url e.g. via the updinfo</span>
+    <span class="c">// method otherwise it is not included as not all sources usually provide this</span>
+    <span class="b">"songurl"</span>:<span class="b">"http:\/\/my_website.com\/about_the_song"</span>,
+
+    <span class="c">// cumulative total of any attempts to connect to the stream when it is active</span>
+    <span class="b">"streamhits"</span>:<span class="s">0</span>,
+
+    <span class="c">// shows 1 if a source is connected and 0 if there is no source</span>
+    <span class="c">// note: if there is no source then no listener connections occur</span>
+    <span class="c">//       unless a valid backupfile has been configured to be used</span>
+    <span class="b">"streamstatus"</span>:<span class="s">1</span>,
+
+    <span class="c">// shows 1 if a backup source is active instead of the main source</span>
+    <span class="c">// due to connection issues and 0 if the backup source is not used</span>
+    <span class="c">// note: if there is no source then no listener connections occur</span>
+    <span class="c">//       unless a valid backupfile has been configured to be used</span>
+    <span class="b">"backupstatus"</span>:<span class="s">0</span>,
+
+    <span class="c">// shows 1 if successfully listed and 0 if not or is private</span>
+    <span class="b">"streamlisted"</span>:<span class="s">1</span>,
+    <span class="c">// if there is an error being listed then the code is provided</span>
+    <span class="c">// here and if there is no error then this is not provided</span>
+    <span class="b">"streamlistederror"</span>:<span class="s">480</span>,
+
+    <span class="c">// these are only provided if a valid password is provided on the request</span>
+    <span class="c">// with information about the current source and backup (if set) provided</span>
+    <span class="b">"streamsource"</span>:<span class="b">"123.123.123.123"</span>,
+    <span class="c">// this is not provided if there is no backup source specified</span>
+    <span class="b">"streambackup"</span>:<span class="b">"my_backup_url:port"</span>,
+
+    <span class="c">// time in seconds the stream has been running</span>
+    <span class="c">// this is not provided if there is no stream</span>
+    <span class="b">"streamuptime"</span>:<span class="s">123</span>,
+
+    <span class="c">// infomation about the format of the stream content and access path</span>
+    <span class="b">"streampath"</span>:<span class="b">"/highdef"</span>,
+    <span class="b">"bitrate"</span>:<span class="b">"320"</span>,
+    <span class="b">"content"</span>:<span class="b">"audio/aacp"</span>,
+
+    <span class="c">// version of the SHOUTcast server being used</span>
+    <span class="b">"version"</span>:<span class="b">"2.4.7.247 (armv6(rpi))"</span>
+  }</pre>
+<p><br></p>
+
+<a name="Listener_Statistics"></a><h2>2.3.&nbsp;Listener Statistics <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?mode=viewjson&amp;page=3</b> option, the JSON response has details about any currently connected listeners for the specified stream. If there are no listeners connected then there will be no entries in the JSON response generated e.g. <b>[]</b></p>
+<p>Example:</p>
+<pre class="src">  [
+    {
+      <span class="b">"hostname"</span>:<span class="b">"127.0.0.1"</span>,
+      <span class="c">// this is set to **EMPTY** if no user agent was provided by the listener client</span>
+      <span class="b">"useragent"</span>:<span class="b">"WinampMPEG\/5.66"</span>,
+      <span class="b">"connecttime"</span>:<span class="b">"1337"</span>,
+      <span class="c">// a unique number for the listener connection used to determine duplicates</span>
+      <span class="c">// this is unique whilst the listener client is connected but can be re-used after</span>
+      <span class="b">"uid"</span>:<span class="b">"01234567"</span>
+      <span class="c">// this represents the type of the listener client and anything else internally known</span>
+      <span class="b">"type"</span>:<span class="b">"1234567"</span>
+      <span class="c">// this is the referer header of the listener connection (if provided)</span>
+      <span class="b">"referer"</span>:<span class="b">"/admin.cgi"</span>
+      <span class="c">// this is the X-Forwarded-For header of the listener connection (if provided)</span>
+      <span class="b">"xff"</span>:<span class="b">""</span>
+      <span class="c">// this is the advert group id of the listener connection or zero if not gotten</span>
+      <span class="b">"grid"</span>:<span class="b">"01234567"</span>
+      <span class="c">// this is the number of advert runs which have successfully succeed for the listener</span>
+      <span class="b">"triggers"</span>:<span class="b">"123"</span>
+    }
+  ]</pre>
+<p><br></p>
+
+<a name="Song_History"></a><h2>2.4.&nbsp;Song History <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?mode=viewjson&amp;page=4</b> option, the JSON response is made from the currently stored played history (if enabled) for the specified stream. If any song titles have been sent to the server then they will displayed up to the number of songs played to be stoeed (based on the 'songhistory' and 'streamsonghistory' options (<a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2" title="">see DNAS server</a> - <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#Miscellaneous" title="">section 4.7</a> and <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#Stream_Configuration" title="">section 4.12</a> respectively). If there are no song titles held or the DNAS server is not configured to store them (see above) then there will be no entries in the JSON response generated e.g. <b>[]</b></p>
+<p>Example:</p>
+<pre class="src">  [
+    {
+      <span class="b">"playedat"</span>:<span class="b">"1302180341"</span>,
+      <span class="b">"title"</span>:<span class="b">"The Previous Title"</span>
+    },
+    {
+      <span class="b">"playedat"</span>:<span class="b">"1302175246"</span>,
+      <span class="b">"title"</span>:<span class="b">"The Current Title"</span>
+    }
+  ]</pre>
+<p><br></p>
+
+<a name="Stream_Metadata"></a><h2>2.5.&nbsp;Stream Metadata <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?mode=viewjson&amp;page=5</b> option, the JSON response is the currently stored stream metadata as provided by the connected stream source or from any manual title updates (e.g. when using admin.cgi?sid=#&amp;mode=updinfo&amp;song=title) which may have been received for the stream. This can contain just a title (typical with a 1.x stream source) or it can consist of complete range of metadata as taken from the audio source when using a 2.x stream source e.g. an MP3 file with a complete ID3 tag.</p>
+<p>Example:</p>
+<pre class="src">  {
+    <span class="c">// this will be the only entry if a SHOUTcast 1.x source is connected</span>
+    <span class="b">"tit2"</span>:<span class="b">"TechnoColor 81 - Astronivo on ETN.fm - 2012-06-15"</span>,
+    <span class="b">"talb"</span>:<span class="b">"The Album Title"</span>,
+    <span class="b">"tpe1"</span>:<span class="b">"The Artist"</span>,
+    <span class="b">"tyer"</span>:<span class="b">"2011"</span>,
+    <span class="b">"tcon"</span>:<span class="b">"Podcast"</span>,
+    <span class="b">"tenc"</span>:<span class="b">"SHOUTcast Source DSP v2.3.3.201"</span>,
+    <span class="b">"trsn"</span>:<span class="b">"My SHOUTcast Server"</span>,
+    <span class="b">"wors"</span>:<span class="b">"http:\/\/www.shoutcast.com"</span>
+  }</pre>
+<p>Detailed information on the supported fields as well as suggested fields to provide from a 2.x stream source can be found in sc2_xml_metadata.txt (the field name is the same even though the documentation relates to the XML response as is internally used for metadata).</p>
+<p><br></p>
+
+<a name="Stream_Configurations"></a><h2>2.6.&nbsp;Stream Configurations <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?sid=1&amp;mode=viewjson&amp;page=6</b> option, the JSON response is all currently known stream configuration details (based on the configuration options set in the loaded configuration file) as well as any global stream configuration options which are applicable.</p>
+<pre>This is a global action and the stream identifier is not be used but is required to
+allow the DNAS server to process the request correctly e.g. set sid=1 in all cases.</pre>
+<p>Example:</p>
+<pre class="src">  {
+    <span class="c">// these are global settings / information about the stream configurations</span>
+    <span class="c">// if REQUIRECONFIGS is 1 then only source connections matching are allowed</span>
+    <span class="b">"requireconfigs"</span>:<span class="b">"0"</span>,
+    <span class="b">"maxlisteners"</span>:<span class="b">"32"</span>,
+    <span class="c">// if set as 0 then there is no limit on the stream(s) bitrate</span>
+    <span class="b">"maxbitrate"</span>:<span class="b">"128"</span>,
+    <span class="c">// this is the total number of stream configurations known and enabled</span>
+    <span class="b">"total"</span>:<span class="b">"1"</span>,
+    <span class="b">"streams"</span>:
+    [
+      {
+        <span class="c">// the value of 'id' relates to 'streamid' and is used to identify the group</span>
+        <span class="b">"id"</span>:<span class="s">1</span>,
+        <span class="b">"authhash":"my_aush_hash_if_entered"</span>,
+        <span class="b">"path"</span>:<span class="b">"\/highdef"</span>,
+        <span class="b">"relayurl"</span>:<span class="b">""</span>,
+        <span class="b">"backupurl"</span>:<span class="b">""</span>,
+        <span class="c">// if set as SERVERMAXLISTENERS then the global SERVERMAXLISTENERS is in use</span>
+        <span class="b">"maxlisteners"</span>:<span class="b">"maxlisteners"</span>,
+        <span class="c">// if set as SERVERMAXBITRATE then the global SERVERMAXBITRATE is in use</span>
+        <span class="b">"maxbitrate"</span>:<span class="b">""</span>,
+        <span class="b">"public"</span>:<span class="b">"never"</span>,
+        <span class="b">"allowrelay"</span>:<span class="b">"1"</span>,
+        <span class="b">"publicrelay"</span>:<span class="b">"1"</span>
+      }
+    ]
+  }</pre>
+<p><br></p>
+
+<a name="Nextsongs"></a><h2>2.7.&nbsp;Nextsongs <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the public <b>/nextsongs?json=1</b> admin option, the JSON response contains a list of titles (if provided by the stream source) of the titles of the songs which are to be expected to be played after the currently playing song finishes. The number of song titles returned is determinded by the stream source so the JSON response generated can contain no titles e.g. <b>[]</b> or it could contain 10 titles or more.</p>
+<p>Example:</p>
+<pre class="src">  [
+    {
+      <span class="b">"title"</span>:<span class="b">"The Very Next Title"</span>
+    },
+    {
+      <span class="b">"title"</span>:<span class="b">"The Title After That"</span>
+    }
+  ]</pre>
+<p><br></p>
+
+<a name="Server_Statistics"></a><h2>2.8.&nbsp;Server Statistics <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the public <b>/statistics?json=1</b> admin option, the JSON response contains a list of the responses returned via /stats for all known stream configurations and streams which have a connected source (even if they are not directly specified in the stream configuration). Additionally it provides consolidated statistics including the total unique number of listeners connected to the server when viewed across all of the active streams (if at all).</p>
+<p>Example:</p>
+<pre class="src">{
+    <span class="c">// this block is for server wide statistics from all streams</span>
+
+    <span class="c">// the total number of streams known by the server</span>
+    <span class="b">"totalstreams"</span>:<span class="s">2</span>,
+    <span class="c">// the total number of active streams (with a source) known by the server</span>
+    <span class="b">"activestreams"</span>:<span class="s">1</span>,
+
+    <span class="b">"currentlisteners"</span>:<span class="s">0</span>,
+    <span class="b">"peaklisteners"</span>:<span class="s">0</span>,
+    <span class="c">// the maximum number of listener connections allowed in total to the server</span>
+    <span class="b">"maxlisteners"</span>:<span class="s">32</span>,
+    <span class="c">// the number of unique listener connections across all active streams so if</span>
+    <span class="c">// one listener is on 2 streams, this will only be counted as one unique listener</span>
+    <span class="b">"uniquelisteners"</span>:<span class="s">0</span>,
+    <span class="c">// average time (seconds) of any active listener connections</span>
+    <span class="b">"averagetime"</span>:<span class="s">0</span>,
+
+    <span class="c">// version of the SHOUTcast server being used</span>
+    <span class="b">"version"</span>:<span class="b">"2.4.7.247 (armv6(rpi))"</span>,
+
+    <span class="c">// first stream block which relates to /stats?sid=id&json=1</span>
+    <span class="c">// if there are no stream configurations specified or there</span>
+    <span class="c">// are no active streams then this would not be present</span>
+    <span class="b">"streams"</span>:[
+      {
+        <span class="b">"id"</span>:<span class="s">1</span>,
+        <span class="b">"currentlisteners"</span>:<span class="b">0</span>,
+        <span class="b">"peaklisteners"</span>:<span class="b">0</span>,
+        <span class="c">// the maximum number of listener connections potentially allowed which depends</span>
+        <span class="c">// on the maxuser and streammaxuser config options and other stream configs</span>
+        <span class="b">"maxlisteners"</span>:<span class="s">32</span>,
+        <span class="b">"uniquelisteners"</span>:<span class="s">0</span>,
+        <span class="c">// average time (seconds) of any active listener connections</span>
+        <span class="b">"averagetime"</span>:<span class="s">0</span>,
+
+        <span class="c">// these are some information about the stream as shown in listener clients, etc</span>
+        <span class="b">"servergenre"</span>:<span class="b">"Misc"</span>,
+        <span class="c">// there can also be: servergenre2, servergenre3, servergenre4 and </span>
+        <span class="c">// servergenre5 elements depending on how the stream has been setup</span>
+
+        <span class="b">"serverurl"</span>:<span class="b">"http:\/\/my_website.com"</span>,
+        <span class="b">"servertitle"</span>:<span class="b">"Test Server"</span>,
+
+        <span class="c">// if the SHOUTcast source provides current and next song titles then</span>
+        <span class="c">// they will be listed. if not known then these will be empty entries</span>
+        <span class="b">"songtitle"</span>:<span class="b">"The Current Song"</span>,
+        <span class="b">"nexttitle"</span>:<span class="b">"The Next Song"</span>,
+
+        <span class="c">// User ID of the source which typically comes from a SHOUTcast 2.x source</span>
+        <span class="c">// note: this can be present if a 1.x source is in use due to metadata updates</span>
+        <span class="b">"dj"</span>:<span class="b">"DJ Funky"</span>,
+
+        <span class="c">// cumulative total of any attempts to connect to the stream when it is active</span>
+        <span class="b">"streamhits"</span>:<span class="s">0</span>,
+
+        <span class="c">// shows 1 if a source is connected and 0 if there is no source</span>
+        <span class="c">// note: if there is no source then no listener connections occur</span>
+        <span class="c">//       unless a valid backupfile has been configured to be used</span>
+        <span class="b">"streamstatus"</span>:<span class="s">1</span>,
+
+        <span class="c">// shows 1 if a backup source is active instead of the main source</span>
+        <span class="c">// due to connection issues and 0 if the backup source is not used</span>
+        <span class="c">// note: if there is no source then no listener connections occur</span>
+        <span class="c">//       unless a valid backupfile has been configured to be used</span>
+        <span class="b">"backupstatus"</span>:<span class="s">0</span>,
+
+        <span class="c">// shows 1 if successfully listed and 0 if not or is private</span>
+        <span class="b">"streamlisted"</span>:<span class="s">1</span>,
+        <span class="c">// if there is an error being listed then the code is provided</span>
+        <span class="c">// here and if there is no error then this is not provided</span>
+        <span class="b">"streamlistederror"</span>:<span class="s">480</span>,
+
+        <span class="c">// these are only provided if a valid password is provided on the request</span>
+        <span class="c">// with information about the current source and backup (if set) provided</span>
+        <span class="b">"streamsource"</span>:<span class="b">"123.123.123.123"</span>,
+        <span class="c">// this is not provided if there is no backup source specified</span>
+        <span class="b">"streambackup"</span>:<span class="b">"my_backup_url:port"</span>,
+
+        <span class="c">// time in seconds the stream has been running</span>
+        <span class="c">// this is not provided if there is no stream</span>
+        <span class="b">"streamuptime"</span>:<span class="s">123</span>,
+
+        <span class="c">// infomation about the format of the stream content and access path</span>
+        <span class="b">"streampath"</span>:<span class="b">"\/"</span>,
+        <span class="b">"bitrate"</span>:<span class="s">56</span>,
+        <span class="b">"content"</span>:<span class="b">"audio/mpeg</span>"
+      },
+      <span class="c">// next stream block which relates to /stats?sid=id&json=1</span>
+      {
+        <span class="b">"id"</span>:<span class="s">2</span>,
+        <span class="c">// another instance of details</span>
+      }
+    ]
+  }</pre>
+<p><br></p>
+
+<a name="Bandwidth_Usage"></a><h2>2.9.&nbsp;Bandwidth Usage <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?mode=bandwidth&amp;type=json</b> option, the JSON response contains different metrics showing overall usage down to the level of specific bandwidth usage. The values returned are as reliable as can be determined but may not include every piece of data sent and received or the bandwidth used for the request made (it is included in the next request made).</p>
+<pre>This is a global action and the stream identifier is not required.</pre>
+<p>Example:</p>
+<pre class="src">  {
+    <span class="c">// the total number of bytes sent and received</span>
+    <span class="b">"total"</span>:<span class="s">4434608</span>,
+    <span class="c">// with specific sent and received total which sums up to the total above</span>
+    <span class="b">"sent"</span>:<span class="s">33498</span>,
+    <span class="b">"recv"</span>:<span class="s">4401110</span>,
+    <span class="c">// duration the DNAS server has been up and running for so it</span>
+    <span class="c">// is possible to calculate average bandwidth per unit of time</span>
+    <span class="b">"time"</span>:<span class="s">365</span>,
+
+    <span class="c">// the total number of bytes sent to listener clients</span>
+    <span class="b">"clientsent"</span>:<span class="b"></span>{
+      <span class="c">// the total number of bytes sent for this metric</span>
+      <span class="b">"total"</span>:<span class="s">0</span>,
+      <span class="c">// followed by 2.x</span>
+      <span class="b">"v2"</span>:<span class="s">0</span>,
+      <span class="c">// and 1.x specifics</span>
+      <span class="b">"v1"</span>:<span class="s">0</span>
+    },
+
+    <span class="c">// the total number of bytes received from connected sources</span>
+    <span class="b">"sourcerecv"</span>:{
+      <span class="c">// the total number of bytes sent for this metric</span>
+      <span class="b">"total"</span>:<span class="s">4401110</span>,
+      <span class="c">// followed by 2.x</span>
+      <span class="b">"v2"</span>:<span class="s">0</span>,
+      <span class="c">// and 1.x specifics</span>
+      <span class="b">"v1"</span>:<span class="s">4401110</span>
+    },
+
+    <span class="c">// the total number of bytes sent to connected sources e.g. when handshaking</span>
+    <span class="b">"sourcesent"</span>:{
+      <span class="c">// the total number of bytes sent for this metric</span>
+      <span class="b">"total"</span>:<span class="s">20</span>,
+      <span class="c">// followed by 2.x</span>
+      <span class="b">"v2"</span>:<span class="s">0</span>,
+      <span class="c">// and 1.x specifics</span>
+      <span class="b">"v1"</span>:<span class="s">20</span>
+    },
+
+    <span class="c">// the total number of bytes received from connected relay sources</span>
+    <span class="b">"relayrecv"</span>:{
+      <span class="c">// the total number of bytes sent for this metric</span>
+      <span class="b">"total"</span>:<span class="s">0</span>,
+      <span class="c">// bytes received during handshaking when determining the protocol</span>
+      <span class="b">"misc"</span>:<span class="s">0</span>,
+      <span class="c">// followed by v2</span>
+      <span class="b">"2.x"</span>:<span class="s">0</span>,
+      <span class="c">// and 1.x specifics</span>
+      <span class="b">"v1"</span>:<span class="s">0</span>
+    },
+
+    <span class="c">// the total number of bytes sent for any web based requests e.g. /index.html</span>
+    <span class="b">"webpages"</span>:{
+      <span class="b">"total"</span>:<span class="s">33478</span>,
+      <span class="c">// public pages e.g. /stats or /index.html or /index.css</span>
+      <span class="b">"public"</span>:<span class="s">9670</span>,
+      <span class="c">// private pages e.g. /admin.cgi and all pages derived from it</span>
+      <span class="b">"private"</span>:<span class="s">23808</span>
+    },
+
+    <span class="c">// the total number of bytes sent or received for all other functionality</span>
+    <span class="b">"other"</span>:{
+      <span class="b">"total"</span>:<span class="s">0</span>,
+      <span class="c">// usage relating to the flash policy server</span>
+      <span class="b">"flash"</span>:<span class="s">0</span>,
+      <span class="c">// bytes sent to connected relay sources e.g. error responses</span>
+      <span class="b">"relaysentv2"</span>:<span class="s">0</span>,
+      <span class="c">// usage relating to DNAS and Directory communications</span>
+      <span class="b">"ypsent"</span>:<span class="s">0</span>,
+      <span class="b">"yprecv"</span>:<span class="s">0</span>,
+      <span class="c">// usage relating to adverts and listener client metrics</span>
+      <span class="b">"auth_metrics"</span>:<span class="s">0</span>,
+      <span class="b">"adverts"</span>:<span class="s">0</span>
+    }
+  }</pre>
+<p><br></p>
+
+
+<a name="Directory_Status"></a><h2>2.10.&nbsp;Directory Status <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>When using the administrative <b>admin.cgi?mode=ypstatus</b> option, the JSON response contains a list of the known and configured streams showing appropriate information about them being listed in the Directory or not if there are errors. This is a consolidation of the information shown on the 'Server Administrator' and 'Stream Administrator' pages though is only accessible by the 'Server Administrator'.</p>
+<pre>This is a global action and the stream identifier is not required.</pre>
+<p>Example:</p>
+<pre class="src">  {
+    <span class="b">"streams"</span>:
+    [
+      {
+        <span class="c">// the stream has moved and is not accesible</span>
+        <span class="b">"id"</span>:<span class="s">1</span>,
+        <span class="b">"status"</span>:<span class="b">"moved"</span>
+      },
+      {
+        <span class="c">// the stream has not got an active source connected</span>
+        <span class="b">"id"</span>:<span class="s">2</span>,
+        <span class="b">"status"</span>:<span class="b">"nosource"</span>
+      },
+      {
+        <span class="c">// the stream is running and listed, showing the associated stationid</span>
+        <span class="b">"id"</span>:<span class="s">3</span>,
+        <span class="b">"status"</span>:<span class="b">"public"</span>,
+        <span class="b">"stnid"</span>:<span class="s">123456</span>
+      },
+      {
+        <span class="c">// the stream is running but there was an error listing, showing the Directory error code</span>
+        <span class="b">"id"</span>:<span class="s">4</span>,
+        <span class="b">"status"</span>:<span class="b">"error"</span>,
+        <span class="b">"code"</span>:<span class="s">480</span>
+      }
+    ]
+  }</pre>
+<p><br>The current values returned for the 'status' value are:</p>
+<p>
+<table cellspacing=0 cellpadding=5 border=1 style="margin-left:25px;border-collapse:collapse;">
+<tr><td><b>NOSOURCE</b></td><td>There is no source connected, stream is inactive</td></tr>
+<tr><td><b>PRIVATE</b></td><td>The streams is running and is not configured to be listed in the Directory</td></tr>
+<tr><td><b>WAITING</b></td><td>The stream is running and is attempting to connect to the Directory to be listed</td></tr>
+<tr><td><b>YP_NOT_FOUND</b></td><td>The Directory is not accessible and the stream cannot be listed</td></tr>
+<tr><td><b>PUBLIC</b></td><td>The Directory recognised the stream and has listed it (the stationid is provided)</td></tr>
+<tr><td><b>ERROR</b></td><td>The Directory could not accept the stream and has not listed it (the error code is provided)</td></tr>
+<tr><td><b>YP_MAINTENANCE</b></td><td>The Directory is down for maintenance so your stream will not be listed and will behave like it is private</td></tr>
+<tr><td><b>EMPTY_AUTHHASH</b></td><td>There is no authhash specified and the stream is not listed or allowing listeners to connect</td></tr>
+<tr><td><b>INVALID_AUTHHASH</b></td><td>The authhash is incorrectly specified and the stream is not listed or allowing listeners to connect</td></tr>
+</table>
+<p>For more details on the error codes which may be returned by the Directory can be found <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#YP_Server_Errors"><b>here</b></a>.</p>
+<p><br></p>
+
+<a name="7.html"></a><h2>2.11.&nbsp;7.html (Legacy) <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>With 1.x DNAS servers http://&lt;serverip&gt;:&lt;port&gt;/7.html could be used to get specific information about the current server instance for status checking and other uses as a limited set of data.<br><br>This is provided in the 2.x DNAS server purely as a legacy response due to old tooling dependencies and where possible it is recommended to use the newer responses as they provide an equivalent response which provides extra information (without being locked to a fixed format) via the <b>admin.cgi?sid=#&amp;mode=viewjson&amp;page=1</b> (private) or <b>/stats?sid=#&amp;json=1</b> (public) methods (<a href="#General_Server_Summary" title="">see section 2.2</a>).</p><p><br>The 7.html response provides the following values as a comma separated list (using the entry names in the equivalent responses):</p>
+<p style="padding-left:15px;"><b>currentlisteners , streamstatus , peaklisteners , maxlisteners , uniquelisteners , bitrate , songtitle</b></p>

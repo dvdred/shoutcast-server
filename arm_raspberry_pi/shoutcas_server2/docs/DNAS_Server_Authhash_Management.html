@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SHOUTcast DNAS Server Authhash Management</title>
+<style type="text/css">body,table,textarea,pre{font-family:Arial,Helvetica,sans-serif;font-size:10pt;}.header{background-color:rgb(66,164,189);color:white;padding:1px;}a:link,a:visited{color:#2762AE;text-decoration:none;}a:hover{text-decoration:underline;}ul{list-style-type:none;text-align:left;}ul.n{list-style-type:square;text-align:left;}pre{background-color:#F0F0F0;border:1px solid #CCCCCC;font-weight:bold;padding:5px 10px 5px 10px;display:inline-block;margin-top:0;margin-bottom:0;margin-left:25px;}pre.src{border:0;font-family:monospace;background-color:white;}span.b{font-weight:normal;color:#3366CC;}span.c{font-style:italic;font-weight:normal;color:#808080;}span.v{font-weight:normal;}span.r{font-weight:normal;color:#000066;}span.s{font-weight:normal;color:#FF0000;}#toc{border:1px solid #CCCCCC;padding:0 5px 0 5px;text-align: center;}p.ver{font-size:85%;margin-top:-1.5em;text-align:center;}.thumb{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:202px;}.serv{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:252px;}.pages{white-space:nowrap;padding-right:25px;}img{width:200px;}img.serv{width:250px;}img.thumb{border:1px solid #CCCCCC;}hr{border:0;background-color:#CCCCCC;height:1px;)</style>
+<script type="text/javascript">if(window.showTocToggle){var tocShowText="show";var tocHideText="hide";showTocToggle()}function showTocToggle(){if(document.createTextNode){var linkHolder=document.getElementById('toctitle');if(!linkHolder){return}var outerSpan=document.createElement('span');outerSpan.className='toctoggle';var toggleLink=document.createElement('a');toggleLink.id='togglelink';toggleLink.className='internal';toggleLink.href='javascript:toggleToc()';toggleLink.appendChild(document.createTextNode(tocHideText));outerSpan.appendChild(document.createTextNode('['));outerSpan.appendChild(toggleLink);outerSpan.appendChild(document.createTextNode(']'));linkHolder.appendChild(document.createTextNode(' '));linkHolder.appendChild(outerSpan);var cookiePos=document.cookie.indexOf("auth_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+13)==1){toggleToc()}}}function changeText(el,newText){if(el.innerText){el.innerText=newText}else if(el.firstChild&&el.firstChild.nodeValue){el.firstChild.nodeValue=newText}}function toggleToc(){var toc=document.getElementById('toc').getElementsByTagName('ul')[0];var toggleLink=document.getElementById('togglelink');if(toc&&toggleLink&&toc.style.display=='none'){changeText(toggleLink,tocHideText);document.getElementById('toc').style.cssFloat='left';toc.style.display='block';document.cookie="auth_hidetoc=0"}else{changeText(toggleLink,tocShowText);document.getElementById('toc').style.cssFloat='';toc.style.display='none';document.cookie="auth_hidetoc=1"}}window.onload=function(){var cookiePos=document.cookie.indexOf("auth_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+13)==1){toggleToc()}}
+</script>
+</head>
+<div class="header">
+<h1 align="center">SHOUTcast DNAS Server Authhash Management</h1>
+<p class="ver">(Last Updated 16 March 2015)</p>
+</div>
+<table id="toc" style="float:left;margin-right:40px;margin-bottom:5px;"><tbody><tr><td>
+<div id="toctitle"><b>Contents</b> <span class="toctoggle">[<a id="togglelink" class="internal" href="javascript:toggleToc()">hide</a>]</span></div>
+<ul style="padding-left:0px;">
+<li><a href="#Introduction">1 Introduction</a></li>
+<ul>
+<li><a href="#When_is_an_Authhash_needed.3F">1.1 When is an Authhash needed?</a>
+<li><a href="#Why_is_an_Authhash_needed.3F">1.2 Why is an Authhash needed?</a>
+</ul>
+<li><a href="#Management">2 Management</a></li>
+<ul>
+<li><a href="#Creating">2.1 Creating</a></li>
+<li><a href="#Updating">2.2 Updating</a></li>
+<li><a href="#Duplicating">2.3 Duplicating</a></li>
+<li><a href="#Manual_Editing">2.4 Manual Editing</a></li>
+</ul>
+<li><a href="#Management_Issues">3 Management Issues</a></li>
+</ul>
+</td></tr></tbody></table>
+
+<a name="Introduction"></a><h2>1.&nbsp;Introduction</h2>
+<hr>
+<p>One of the key aspects of the v2 SHOUTcast Directory infrastructure (as used by the v2 DNAS server) is an authhash which is used to validate your DNAS server when it tries to connect to the SHOUTcast Directory for any of the station(s) you run.<br><br>Once an authhash has been obtained, it will be valid for all DNAS servers of the station being broadcast which make use of it though it will be tied to the original host used to generate it if subsequent editing is required.</p><br>
+<pre>An authhash is not something you are charged for and are free to create.
+
+You should never publically post an authhash - treat it like its a password!</pre>
+<p><br>You can obtain multiple authhash or re-use an existing authhash depending on your needs and the type and format of the stream. So the same authhash can be used for all instances of a station if each stream is using a different bitrate or type as the SHOUTcast Directory will automatically list those streams separately for you.</p>
+<p><br></p>
+
+<a name="When_is_an_Authhash_needed.3F"></a><h2>1.1.&nbsp;When is an Authhash needed? <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>The DNAS server can be run in three modes:</p>
+<ul class="n"><li><b>Public</b> - If you want your station to appear in the SHOUTcast Directory</li>
+<li><b>Private</b> - If you do not want your station to be listed e.g. an internal company station</li> 
+<li><b>CDN</b> - This mode allows for either running in Public or Private mode but requires an authhash</li>
+</ul>
+<p>If you want the station to be publically listed then you will need an authhash, otherwise it is not needed for private stations.</p>
+<p>If you want to run the DNAS privately then you can change the appropriate setting in the stream source being used. Otherwise you can change publicserver or streampublicserver (if using stream specific control) to be 'never' in the DNAS's configuration file e.g. <b>publicserver=never</b>.</p>
+<p><br></p>
+
+<a name="Why_is_an_Authhash_needed.3F"></a><h2>1.2.&nbsp;Why is an Authhash needed? <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>The main purpose of an authhash is to help to ensure your listing in the SHOUTcast Directory will use the same stationid irrespective of server address changes and other changes which could not be guaranteed when using a v1 based DNAS server. This is achieved the authhash acting as a fixed piece of information the SHOUTcast Directory knows about and from the DNAS server being able to provide it so there is no doubt when we find your listing details (which was not possible with the previous v1 based methods).</p>
+<p>It also makes it simple to ensure that multiple servers for a stream are correctly grouped together and that they all provide the same stream title and associated metadata. This is because the authhash can be re-used on other streams so by copy + pasting it into another stream configuration, it is simple to add other servers to a listing. With a v1 DNAS server, you would have to ensure that all sources connected were setup the same otherwise it is possible for them not to be grouped correctly or in some cases be grouped with the servers of an unrelated stream.</p>
+<p>The authhash is also used as part of the DNAS+ and DNAS+ for CDN streaming solutions where it will provide the additional information needed to allow the DNAS to provide the additional monetisation and advert solutions.</p>
+<p>Finally, it makes it possible to control and also change details of the stream without having to rely upon access to all sources used to feed the stream (which can be useful if you have multiple DJs providing the stream and they are not as careful about their settings for the stream title as they should be).</p>
+<p><br>Overall, the authhash helps ensure a better stability in your listing as well as resolving some issues with the v1 SHOUTcast system. It may seem like an unnecessary step and take up a bit more time to get up and running but is the equivalent of signing up and filling in details for your stream(s) as other stream directories require.</p>
+<p><br></p>
+
+<a name="Management"></a><h2>2.&nbsp;Management <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<div class="thumb"><a href="res/Summary.png" title="DNAS Summary Page"><img class="thumb" alt="DNAS Summary Page" src="res/Summary.png"></a></div>
+<p>To obtain a authhash, you first need to have setup the v2 DNAS server and have a source (such as the Source DSP) connected so the stream is recognised by the DNAS.</p>
+<p>Then you need to login to the '<b>Server Summary</b>' page which is accessed from the '<b>Server Login</b>' link in the top right on publically accessible pages of the DNAS server.</p>
+<div class="thumb"><a href="res/Start.png" title="DNAS Server Summary Page"><img class="thumb" alt="DNAS Server Summary Page" src="res/Start.png"></a></div>
+<pre>To login, the username is 'admin' and the password is the<br>configured adminpassword (<a href="DNAS_Server.html" title="">see DNAS server</a> - <a href="DNAS_Server.html#Networking" title="">section 4.8</a>)</pre>
+<p>You can also access it directly by opening <a href="http://127.0.0.1:8000/admin.cgi">http://127.0.0.1:8000/admin.cgi</a> if doing this on the same machine as the DNAS server is being run on. If you have changed '<b>portbase</b>' then you will need to change <b>8000</b> to the value specified for 'portbase'. If you are accessing this remotely then you will need to change <b>127.0.0.1</b> to the appropriate IP address / DNS name of the machine you are trying to access.</p>
+<p>On the '<b>Server Summary</b>' page you will see listed any streams which have sources connected or have been configured. For streams which have sources connected, '<a href="#Creating">Create Authhash</a>' and '<a href="#Updating">Update Authhash</a>' options will be shown as appropriately beneath the stream number. Additionally there will be a '<a href="#Manual_Editing">Manually Edit Authhash</a>' option.</p>
+<p><br></p>
+
+<a name="Creating"></a><h2>2.1.&nbsp;Creating <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<div class="thumb"><a href="res/Editing.png" title="Creating an Authhash"><img class="thumb" alt="Creating an Authhash" src="res/Editing.png"></a></div>
+<br><pre>Depending on the version and configuration of your DNAS server
+it may automatically do this step for you the first time the stream
+is started. If it does then see '<a href="#Updating">Update Authhash</a>' for making edits.</pre>
+<p>To create an authhash for a stream, click the '<b>Create Authhash</b>' link. This will take you to where you need to fill in the missing fields as applicable for your stream as the DNAS server will attempt to fill in fields with the information obtained from the source. Once all of the required information has been entered then click the '<b>Create Authhash</b>' button.</p>
+<p><br>If there is a missing field or something is determined to not be correct, you will either see a <font color="red"><b>red</b></font> or <font color="orange"><b>orange</b></font> border around the field which needs to be entered or changed or you will be provided with additional help. This will generally happen if you enter a value for the station name which is not allowed (as per <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_Radio_Authhash_API#Illegal_Input_Values">here</a>).</p>
+<div class="thumb"><a href="res/Completed.png" title="Created an Authhash"><img class="thumb" alt="Created an Authhash" src="res/Completed.png"></a></div>
+<p><br>On successful creation, the new authhash will be saved into the configuration file either in the root configuration file or one where there's an empty streamauthhash entry which matches the stream identifier. When you go back to the '<b>Server Summary</b>' page the '<a href="#Creating">Create Authhash</a>' link will have changed to '<a href="#Updating">Update Authhash</a>'.</p>
+<p><br></p>
+
+<a name="Updating"></a><h2>2.2.&nbsp;Updating <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>Updating an authhash is the same as with creating an authhash with the existing details of the authhash shown in the fields instead of being taken from the connected source. If there are no issues and the authhash can be updated from the machine used (with it having the same external IP as was used when creating the authhash) then any changes made should be updated.</p>
+<p>If there is a missing field or something is determined to not be correct, you will either see a <font color="red"><b>red</b></font> or <font color="orange"><b>orange</b></font> border around the field which needs to be entered or changed or you will be provided with additional help. This will generally happen if you enter a value for the station name which is not allowed (as per <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_Radio_Authhash_API#Illegal_Input_Values">here</a>).</p>
+<pre>It normally takes a few seconds for the changed details to be fully
+recognised. If you have made a mistake or are trying to get listed
+then you may need to wait a minute before trying to update again.</pre>
+<p><br>The DNAS server will attempt to apply any updated authhash changes automatically (even if made from the main DNAS server used to edit the details and other streams are using the same authhash) though if the DNAS server cannot complete this then it may automatically drop the current source for the stream(s) to allow it to then re-connect so it can then update the stream to sue the new details.</p>
+<p><br></p>
+
+<a name="Duplicating"></a><h2>2.3.&nbsp;Duplicating <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>If you want to use the same authhash on another stream (e.g. if only the stream format is different or you want to group the same stream content) then you can use the '<a href="#Manual_Editing">Manually Edit Authhash</a>' option or to manually edit the configuration file by setting the relevant '<b>streamauthhash</b>' entry for the required stream configuration group followed by using the '<b>Reload All Stream Configuration(s)</b>' option on the '<b>Server Summary</b>' page.</p>
+<p><br></p>
+
+<a name="Manual_Editing"></a><h2>2.4.&nbsp;Manual Editing <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<div class="thumb"><a href="res/Manual.png" title="Manually Editing an Authhash"><img class="thumb" alt="Manually Editing an Authhash" src="res/Manual.png"></a></div>
+<p>This is provided to make it easier to duplicate existing authhashes between streams on the same DNAS server or to copy them onto a different DNAS server instance. It provides the means to see the authhash for the selected stream or to choose an existing authhash from another stream on the DNAS server, allowing it to be choosen or cleared or replaced.</p>
+<p><br></p>
+
+<a name="Management_Issues"></a><h2>3.&nbsp;Management Issues <a style="font-size:55%;" href="#">[top]</a></h2>
+<hr>
+<p>If you experience issues with managing your authhash, make sure you follow any information provided to attempt to resolve the issue e.g. checking the DNAS server log for any specific messages it notes.</p>
+<p>If that still does not work then you will need to contact support via <a href="http://goo.gl/2YzesR">support@shoutcast.com</a>, ensuring you provide any appropriate information about the DNAS server and browser being used and any specific errors reported such as those in the DNAS server log.</p>
+<p><br></p>
