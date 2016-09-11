@@ -1,0 +1,18 @@
+[Unit]
+Description=Shoutcast server
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=shoutradio
+Group=shoutradio
+ExecStart=/opt/shoutserver/sc_serv sc_serv.conf
+ExecStop=/usr/bin/pkill sc_serv
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
+
